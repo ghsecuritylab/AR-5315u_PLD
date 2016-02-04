@@ -1,0 +1,26 @@
+<html>
+   <head>
+      <link rel="stylesheet" href='stylemain.css' type='text/css'>
+         <link rel="stylesheet" href='colors.css' type='text/css'>
+            <meta http-equiv="Pragma" content="no-cache">
+            <meta http-equiv="refresh" content="20">
+            <title></title>
+            <base target="_self">
+   </head>
+   <body>
+      <blockquote>
+         <b>Device Info -- DHCPv6 Leases</b>
+         <br><br>
+         <table border="1" cellpadding="4" cellspacing="0">
+            <tr>
+               <td class="hd">IPv6 Address</td>
+               <td class="hd">MAC Address</td>
+               <td class="hd">Duration</td>
+               <td class="hd">Expires In</td>
+               
+	        </tr>
+            <%ejGet(dhcpv6Leases)%>
+         </table>
+      </blockquote>
+   </body>
+</html>

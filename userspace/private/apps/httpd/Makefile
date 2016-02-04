@@ -1,0 +1,27 @@
+EXE = httpd
+dynamic: generic_exe_install
+
+
+httpd:
+	cp httpd_$(PROFILE)_save httpd
+
+	mkdir -p $(INSTALL_DIR)/webs
+	cp -f html/*.html html/*.js html/*.gif html/*.css $(INSTALL_DIR)/webs
+
+
+	-cp -f $(PROFILE_DIR)/custom_html/*.* $(INSTALL_DIR)/webs
+ifneq ($(strip $(CTCONFIG_MGM_CT_GUI)), )
+	cp -f cthtml/*.* $(INSTALL_DIR)/webs
+	cp -f cthtml/ctlogo/*.* $(INSTALL_DIR)/webs
+	-cp -rf cthtml/map_view_pic $(INSTALL_DIR)/webs
+	-cp -rf cthtml/_js $(INSTALL_DIR)/webs
+endif
+
+clean:
+	rm -f httpd
+
+
+CURR_DIR := $(shell pwd)
+BUILD_DIR := $(subst /userspace, /userspace,$(CURR_DIR))
+BUILD_DIR := $(word 1, $(BUILD_DIR))
+include $(BUILD_DIR)/make.common

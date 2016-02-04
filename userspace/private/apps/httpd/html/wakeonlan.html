@@ -1,0 +1,97 @@
+<html>
+   <head>
+      <meta HTTP-EQUIV='Pragma' CONTENT='no-cache'>
+      <link rel="stylesheet" href='stylemain.css' type='text/css'>
+      <link rel="stylesheet" href='colors.css' type='text/css'>
+         <script language="javascript" src="util.js"></script>
+         <script language="javascript">
+<!-- hide
+
+var useBroadcast = 0;
+
+function wakeClick() {
+   var loc = 'wakeonlan.cmd?';
+
+   with (document.forms[0]) {
+
+      var idx = lanIfc.selectedIndex;
+      var wolIfc = lanIfc.options[idx].value;
+      if (wolIfc=='') {
+         alert('Please select a LAN Interface.');
+         return;
+      }
+
+      loc += '&wolIfc=' + wolIfc;
+
+      if (isValidMacAddress(MacAddr.value) == false) {
+         alert('Invalid MAC address "' + MacAddr.value + '"');
+         return;
+      }
+
+      loc += '&mac=' + MacAddr.value;
+
+      if (chkUseBroadcast.checked == true)
+         loc += '&useBroadcast=1';
+      else
+         loc += '&useBroadcast=0';
+   }
+
+   loc += '&sessionKey=<%ejGetOther(sessionKey)%>';
+   var code = 'location="' + loc + '"';
+
+   eval(code);
+}
+
+// done hiding -->
+</script>
+   </head>
+   <body>
+      <blockquote>
+         <form>
+            <b>Wake-on-LAN</b><br>
+            <br>
+            This tool allows you to wake up (power on) computers connected to the Broadband Router LAN interface by sending special "magic packets".<br>
+            The network interface card in the computer or device that is going to be woken up must support Wake-on-LAN.<br>
+            <br>
+            <br>
+            Enter the device MAC address in the format <b>xx:xx:xx:xx:xx:xx</b> and then click "Wake Up!".
+            <br>
+            <br>
+            <td>LAN Interface (default <b>br0</b>):&nbsp;&nbsp;</td>
+            <td><select name='lanIfc'>
+            <script language="javascript">
+<!-- hide
+{
+   var i = 0;
+   var interfaceList = '<%ejGetOther(wolInterfaceList)%>';
+   var interfaces = interfaceList.split('|');
+
+   for (i = 0; i < interfaces.length; i++) {
+      document.write(" <option value='" + interfaces[i] + "'>");
+      document.writeln(interfaces[i]);
+   }
+}
+// done hiding -->
+            </script>
+            </select></td>
+            <br>
+            <br>
+            <table border="0" cellpadding="0" cellspacing="0">
+               <tr>
+                  <td width="80">MAC Address:</td>
+                  <td><input type='text' name='MacAddr'></td>
+               </tr>
+            </table>
+            <br>
+            <br>
+            <table border="0" cellpadding="0" cellspacing="0">
+               <tr>
+                  <td><input type='checkbox' name='chkUseBroadcast'>&nbsp;&nbsp;Send WoL magic packet to the Broadcast address.</td>
+               </tr>
+            </table>
+            <br>
+            <p align="center"><input type='button' value='Wake Up!' onClick='wakeClick()'></p>
+         </form>
+      </blockquote>
+   </body>
+</html>

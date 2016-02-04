@@ -1,0 +1,9 @@
+proc		/proc	proc	defaults	0	0
+# << [CTFN-3G-001-2]
+none            /proc/bus/usb   usbfs   listmode=0444   0       0
+# >> [CTFN-3G-001-2] End
+# << [CTFN-NMIS-013] Lucien Huang : Improve the access speed via Samba, 2012/02/15
+tmpfs		/var	tmpfs	size=640k	0	0
+# >> [CTFN-NMIS-013] End
+tmpfs		/mnt	tmpfs	size=16k	0	0
+sysfs		/sys	sysfs	defaults	0	0

@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
+<html>
+	<head>
+		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+        <title>DSL Line Statistics</title> 
+<link rel="stylesheet" href='stylemain.css' type='text/css'>
+        <script src='amcharts.js' type='text/javascript'></script>
+        <script src='raphael.js' type='text/javascript'></script>        
+	    
+        <script type='text/javascript'>
+        var bonding='<%ejGetOther(sysInfo, buildDslBonding)%>';
+
+        var chart;
+        var chartData = [];
+		var newValueAxis;
+		var addAxis;
+		var removeAxis;
+			var graph1 = new AmCharts.AmGraph();
+			var graph2 = new AmCharts.AmGraph();
+			var graph3 = new AmCharts.AmGraph();
+			var graph4 = new AmCharts.AmGraph();
+// << [TTS2166]slave dsl
+       if(bonding=='1'){
+			var graph5 = new AmCharts.AmGraph();
+			var graph6 = new AmCharts.AmGraph();
+			var graph7 = new AmCharts.AmGraph();
+			var graph8 = new AmCharts.AmGraph();
+        }
+// >> [TTS2166]slave dsl			
+			var tonesvalue1 = '<%ejGetTest(adslTonesValue)%>';
+			var snrvalue1 = '<%ejGetTest(adslSNR)%>';
+			var qlnvalue1 = '<%ejGetTest(adslQLN)%>';
+			var hlogvalue1 = '<%ejGetTest(adslHlog)%>';
+// << [TTS2166]slave dsl
+       if(bonding=='1'){
+			var tonesvalue2 = '<%ejGetTest(adslTonesValue2)%>';
+			var snrvalue2 = '<%ejGetTest(adslSNR2)%>';
+			var qlnvalue2 = '<%ejGetTest(adslQLN2)%>';
+			var hlogvalue2 = '<%ejGetTest(adslHlog2)%>';
+}
+// >> [TTS2166]slave dsl
+        window.onload = function() {
+		 	generateChartData();
+
+			chart = new AmCharts.AmSerialChart();
+			chart.pathToImages = 'amcharts/javascript/images/';
+			chart.pathToImages = 'amcharts/javascript/images/';
+			chart.marginTop = 15;
+			chart.marginLeft = 140;
+			chart.marginRight = 140;
+			chart.dataProvider = chartData;
+			chart.categoryField = 'tone';
+
+			var valAxis1 = new AmCharts.ValueAxis();
+//			valAxis1.axisColor = '#FFFFFF';
+			valAxis1.axisThickness = 2;
+			chart.addValueAxis(valAxis1);
+
+			graph1.valueAxis = valAxis1;
+			graph1.title = 'DSL1_Bits';
+			graph1.valueField = 'bits1';
+			graph1.type = 'smoothedLine';
+			graph1.bullet = 'round';
+			graph1.hideBulletsCount = 30;
+            graph1.lineColor = "#0000FF";
+			//chart.addGraph(graph1);
+/*
+			var valAxis2 = new AmCharts.ValueAxis();
+			valAxis2.offset = 60;
+			valAxis2.axisColor = '#FCD202';
+			valAxis2.gridAlpha = 0;
+			valAxis2.axisThickness = 2;
+			chart.addValueAxis(valAxis2);
+*/
+			graph2.valueAxis = valAxis1;
+			graph2.title = 'DSL1_SNR';
+			graph2.valueField = 'snr1';
+			graph2.type = 'smoothedLine';
+			graph2.bullet = 'square';
+			graph2.hideBulletsCount = 30;
+            graph2.lineColor = "#FF0000";
+			//chart.addGraph(graph2);
+/*
+			valAxis3 = new AmCharts.ValueAxis();
+			valAxis3.position = 'right';
+			valAxis3.gridAlpha = 0;
+			valAxis3.axisColor = '#B0DE09';
+			valAxis3.axisThickness = 2;
+			chart.addValueAxis(valAxis3);
+*/
+			graph3.valueField = 'qln1';
+			graph3.title = 'DSL1_QLN';
+			graph3.bullet = 'triangleUp';
+			graph3.hideBulletsCount = 30;
+			graph3.type = 'smoothedLine';
+			graph3.valueAxis = valAxis1;
+            graph3.lineColor = "#00CD00";
+			//chart.addGraph(graph3);
+/*			
+			valAxis4 = new AmCharts.ValueAxis();
+			valAxis4.offset = 60;
+			valAxis4.gridAlpha = 0;
+			valAxis4.position = 'right';
+			valAxis4.axisColor = '#cc9966';
+			valAxis4.axisThickness = 2;
+			chart.addValueAxis(valAxis4);
+*/
+			graph4.valueField = 'hlog1';
+			graph4.title = 'DSL1_Hlog';
+			graph4.bullet = 'triangleUp';
+			graph4.hideBulletsCount = 30;
+			graph4.type = 'smoothedLine';
+			graph4.valueAxis = valAxis1;			
+            graph4.lineColor = "#F87217";
+			//chart.addGraph(graph4);
+
+// << [TTS2166]slave dsl
+       if(bonding=='1'){
+			graph5.valueAxis = valAxis1;
+			graph5.title = 'DSL2_Bits';
+			graph5.valueField = 'bits2';
+			graph5.type = 'smoothedLine';
+			graph5.bullet = 'round';
+			graph5.hideBulletsCount = 30;
+            graph5.lineColor = "#A0522D";
+			
+			graph6.valueAxis = valAxis1;
+			graph6.title = 'DSL2_SNR';
+			graph6.valueField = 'snr2';
+			graph6.type = 'smoothedLine';
+			graph6.bullet = 'square';
+			graph6.hideBulletsCount = 30;
+            graph6.lineColor = "#9400D3";
+			
+			graph7.valueField = 'qln2';
+			graph7.title = 'DSL2_QLN';
+			graph7.bullet = 'triangleUp';
+			graph7.hideBulletsCount = 30;
+			graph7.type = 'smoothedLine';
+			graph7.valueAxis = valAxis1;
+            graph7.lineColor = "#6B8E23";
+			
+			graph8.valueField = 'hlog2';
+			graph8.title = 'DSL2_Hlog';
+			graph8.bullet = 'triangleUp';
+			graph8.hideBulletsCount = 30;
+			graph8.type = 'smoothedLine';
+			graph8.valueAxis = valAxis1;			
+            graph8.lineColor = "#00688B";
+}
+// >> [TTS2166]slave dsl
+			//<< Joba Yang fix TRAC#4265: In ADSL graph page, if user select "filled" button, blue part (Bits) will not display completely. 
+			chart.addGraph(graph2);
+			chart.addGraph(graph1);
+			chart.addGraph(graph3);
+			chart.addGraph(graph4);
+       if(bonding=='1'){
+			chart.addGraph(graph6);
+			chart.addGraph(graph5);
+			chart.addGraph(graph7);
+			chart.addGraph(graph8);
+         }
+			//>> Joba Yang fix TRAC#4265: In ADSL graph page, if user select "filled" button, blue part (Bits) will not display completely. 
+			
+			var chartCursor = new AmCharts.ChartCursor();
+			chartCursor.cursorColor='#6698FF';
+            chart.addChartCursor(chartCursor);
+
+//			var chartScrollbar = new AmCharts.ChartScrollbar();
+//			chartScrollbar.graph = graph1;
+//			chart.addChartScrollbar(chartScrollbar);
+			
+   			var legend = new AmCharts.AmLegend();			
+   			chart.addLegend(legend);
+
+			chart.write('chartdiv');
+		}
+
+		// generate some random data, quite different range
+		function generateChartData(){
+
+var tmp=tonesvalue1.split(',');
+var tmp2=snrvalue1.split(',');
+var tmp3=qlnvalue1.split(',');
+var tmp4=hlogvalue1.split(',');
+       if(bonding=='1'){
+var tmp5=tonesvalue2.split(',');
+var tmp6=snrvalue2.split(',');
+var tmp7=qlnvalue2.split(',');
+var tmp8=hlogvalue2.split(',');
+}
+var length = tmp[0];
+	for (var i=1; i<length; i+=1){  
+       if(bonding=='1')
+				chartData.push({tone:i, bits1:tmp[i], snr1:tmp2[i], qln1:tmp3[i], hlog1:tmp4[i], bits2:tmp5[i], snr2:tmp6[i], qln2:tmp7[i], hlog2:tmp8[i]});
+       else
+				chartData.push({tone:i, bits1:tmp[i], snr1:tmp2[i], qln1:tmp3[i], hlog1:tmp4[i]});
+			}
+		}
+
+
+            function setType()
+            {
+                var newType;
+                if(document.getElementById("rb1").checked)
+                {
+                    newType = "line";
+                graph1.lineAlpha = 1;
+                graph1.fillAlphas = 0;
+                graph2.lineAlpha = 1;
+                graph2.fillAlphas = 0;
+                graph3.lineAlpha = 1;
+                graph3.fillAlphas = 0;
+                graph4.lineAlpha = 1;
+                graph4.fillAlphas = 0;
+// << [TTS2166]slave dsl
+       if(bonding=='1'){
+                graph5.lineAlpha = 1;
+                graph5.fillAlphas = 0;
+                graph6.lineAlpha = 1;
+                graph6.fillAlphas = 0;
+                graph7.lineAlpha = 1;
+                graph7.fillAlphas = 0;
+                graph8.lineAlpha = 1;
+                graph8.fillAlphas = 0;
+           }
+// >> [TTS2166]slave dsl
+                }
+                if(document.getElementById("rb2").checked)
+                {
+                    newType = "smoothedLine";
+                graph1.lineAlpha = 1;
+                graph1.fillAlphas = 0;
+                graph2.lineAlpha = 1;
+                graph2.fillAlphas = 0;
+                graph3.lineAlpha = 1;
+                graph3.fillAlphas = 0;
+                graph4.lineAlpha = 1;
+                graph4.fillAlphas = 0;
+// << [TTS2166]slave dsl
+       if(bonding=='1'){
+                graph5.lineAlpha = 1;
+                graph5.fillAlphas = 0;
+                graph6.lineAlpha = 1;
+                graph6.fillAlphas = 0;
+                graph7.lineAlpha = 1;
+                graph7.fillAlphas = 0;
+                graph8.lineAlpha = 1;
+                graph8.fillAlphas = 0;
+          }
+// >> [TTS2166]slave dsl
+                }
+                if(document.getElementById("rb3").checked)
+                {
+                    newType = "line";
+                graph1.fillColors ="#0000FF";
+                graph2.fillColor ="#FF0000";
+                graph3.fillColor ="#00CD00";
+                graph4.fillColor = "#F87217";
+                graph3.negativeLineColor = "#00CD00";
+                graph3.negativeFillColors = "#00CD00";
+                graph4.negativeLineColor = "#F87217";
+                graph4.negativeFillColors = "#F87217";
+                graph1.lineAlpha = 0;
+                graph1.fillAlphas = 1;
+                graph2.lineAlpha = 0;
+                graph2.fillAlphas = 1;
+                graph3.lineAlpha = 0;
+                graph3.fillAlphas = 1;
+                graph4.lineAlpha = 0;
+                graph4.fillAlphas = 1;                
+// << [TTS2166]slave dsl
+       if(bonding=='1'){
+                graph5.fillColors ="#A0522D";
+                graph6.fillColor ="#9400D3";
+                graph7.fillColor ="#6B8E23";
+                graph8.fillColor = "#00688B";
+                graph7.negativeLineColor = "#6B8E23";
+                graph7.negativeFillColors = "#6B8E23";
+                graph8.negativeLineColor = "#00688B";
+                graph8.negativeFillColors = "#00688B";
+                graph5.lineAlpha = 0;
+                graph5.fillAlphas = 1;
+                graph6.lineAlpha = 0;
+                graph6.fillAlphas = 1;
+                graph7.lineAlpha = 0;
+                graph7.fillAlphas = 1;
+                graph8.lineAlpha = 0;
+                graph8.fillAlphas = 1;
+}
+// >> [TTS2166]slave dsl
+                }
+
+                    graph1.type = newType;
+                    graph2.type = newType;
+                    graph3.type = newType;
+                    graph4.type = newType;
+// << [TTS2166]slave dsl
+       if(bonding=='1'){
+                    graph5.type = newType;
+                    graph6.type = newType;
+                    graph7.type = newType;
+                    graph8.type = newType;
+}
+// >> [TTS2166]slave dsl
+                    chart.validateNow();
+            }
+	    </script>
+
+    </head>
+
+	<body>
+	<center>
+	<h1>DSL Line Statistics</h1>
+	 <br>You can click on the color box of the legend to show/hide corresponding graph.<br>
+		<div id='chartdiv' style='width: 950px; height: 600px;'></div>
+        <input type="radio" name="group" id="rb1" onclick="setType()"> line
+        <input type="radio" checked  name="group" id="rb2" onclick="setType()"> smoothed line        
+        <input type="radio" name="group" id="rb3" onclick="setType()"> filled
+	</center>
+	</body>
+</html>
