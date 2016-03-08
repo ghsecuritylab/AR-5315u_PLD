@@ -1691,6 +1691,9 @@ int kerSysGetMacAddress( unsigned char *pucaMacAddr, unsigned long ulId )
         if( ulId == pMai->ulId || ulId == MAC_ADDRESS_ANY )
         {
             /* This MAC address has been used by the caller in the past. */
+//<< evan : [PLDT] use single MAC for TR069,2016.02.17
+            i=0;
+//>> evan, end : [PLDT] use single MAC for TR069,2016.02.17
             baseMacAddr = (baseMacAddr + i) << 8;
             memcpy( pucaMacAddr, g_pMacInfo->ucaBaseMacAddr,
                 constMacAddrIncIndex);
@@ -1703,6 +1706,9 @@ int kerSysGetMacAddress( unsigned char *pucaMacAddr, unsigned long ulId )
         else
             if( pMai->chInUse == 0 )
             {
+//<< evan : [PLDT] use single MAC for TR069,2016.02.17
+                i=0;
+//>> evan, end : [PLDT] use single MAC for TR069,2016.02.17
                 if( pMai->ulId == 0 && pMaiFreeNoId == NULL )
                 {
                     /* This is an available MAC address that has never been

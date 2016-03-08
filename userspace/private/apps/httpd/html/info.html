@@ -83,13 +83,28 @@ if (Support_SerialNumber == '1') {
   if (Support_SerialNumber != '--noctsn_hide_sn--') {
   document.writeln("               <tr>");
   document.writeln("                  <td class='hd'>Serial Number:</td>");
-  document.writeln("                  <td><%ejGetOther(ctInfo, ctSerialNumberValue)%>&nbsp;</td>");
+//<< [PLDT] Use MAC in serialNumber to support SPU(ACS) Device ID,2016.02.03
+//  document.writeln("                  <td><%ejGetOther(ctInfo, ctSerialNumberValue)%>&nbsp;</td>");
+  document.writeln("                  <td><%ejGetOther(ctInfo, ctBaseMacNumberValue)%>&nbsp;</td>");
+//>> End, [PLDT] Use MAC in serialNumber to support SPU(ACS) Device ID,2016.02.03
   document.writeln("               </tr>");
   }
 }
 // done hiding -->
 </script>
 <!--//>> [CTFN-SYS-017] End -->
+
+<!-- show dsl uptime in webui , 2010/12/14 -->
+               <tr>
+                  <td class='hd'>DSL Uptime:</td>
+                  <td><%ejGetOther(sysInfo, dslUpTime)%></td>
+               </tr>
+<!-- end -->
+
+               <tr>
+                  <td class='hd'>Uptime:</td>
+                  <td><%ejGetOther(sysInfo, uptimeString)%></td>
+               </tr>
 
         </table>
             <br>

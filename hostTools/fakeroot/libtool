@@ -129,7 +129,7 @@ old_postuninstall_cmds=""
 LTCC="gcc"
 
 # LTCC compiler flags.
-LTCFLAGS="  -O2 -DGNU -I/home/evan/gplupdate/AR-5315u-UC31-412PLD-C01_R01_GPL_UPDATE/bcmdrivers/opensource/include/bcm963xx -I/home/evan/gplupdate/AR-5315u-UC31-412PLD-C01_R01_GPL_UPDATE/shared/opensource/include/bcm963xx -I."
+LTCFLAGS="  -O2 -DGNU -I/home/evan/gplupdate/update1/AR-5315u_PLD_GPL/bcmdrivers/opensource/include/bcm963xx -I/home/evan/gplupdate/update1/AR-5315u_PLD_GPL/shared/opensource/include/bcm963xx -I."
 
 # Take the output of nm and produce a listing of raw symbols and C names.
 global_symbol_pipe="sed -n -e 's/^.*[	 ]\\([ABCDGIRSTW][ABCDGIRSTW]*\\)[	 ][	 ]*\\([_A-Za-z][_A-Za-z0-9]*\\)\$/\\1 \\2 \\2/p'"
